@@ -1,0 +1,300 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Introduction to Software Defined Radio (SDR)</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-markdown data-separator="---" data-separator-vertical="--">
+					<script type="text/template">
+					## Introduction to Software Defined Radio ( SDR ) 
+					Gurjeet Clair - @Toxic_Flange
+
+					http://github.com/gclair/
+
+					<img class="plain" src="images/crazyGurjeet.png" style="width: 300px">
+					Note:  This is an introduction to software defined radio, not a deep dive, and easy on the technical detail. 
+					The intent of this talk is to inform you about a field of research that you may not have known about or wasn't aware
+					that it is more affordable than ever before. 
+					--
+					## WARNING
+					<img class="plain" src="images/h0us3s_Signs_Hazard_Warning_33.png" style="width: 200px" >
+
+					THIS IS NOT AN  "#INFOSEC" TALK.  
+
+					Note: The things i'll talk about today don't really relate to infosec IMO, in a practical way (exceptions). If you are 
+					just interested in all things tech,  or wanting to expand on your bad ass hacking skills, this is, I hope, the talk for you. 
+					If I do it right, I may have introduced you to a potentially expensive hobby. Amateur Radio guys can attest to that. 
+					--
+					###  Fellow Nerds
+					- SCADA/ICS/DSP people
+					- HAM Radio oldies (not in age, just experience)
+
+					Note: If you work with RF stacks or do anything with (DSP) you probably know about this 
+					field, and some of the tools. Maybe I'll introduce you to a new tool, or say something abhorrently 
+					incorrect, please stand up and correct it! 					
+	 
+					---
+					## Why should I care about radios?
+					<img src="images/Gentleman-Hacker-radio.jpg" >
+					Nevil Maskelyne - radio scientist/magician
+					Note: We use them every day, for the majority of the functions in our lives. As hackers or aspiring hackers, learning about 
+					the world around us, how it functions and how to alter it is empowering.. and fun.. sometimes a bit naughty. Amateur Radio,
+					like hacking, is about using radio technology to do what you want, and making technology work the way that you want it to so that 
+					you can accomplish whatever goals you have. Besides some of your favourite hackers are Hams (like The Wozniak), astronauts, 
+					journalists are amateur radio operators. Hated marconi, his broad patents, marconi made a claim his radio was secure.. woo.
+					--
+					## Software Defined Radio (SDR)
+					...  is a radio communication system where components that have been traditionally implemented in hardware 
+					(e.g. mixers, filters, amplifiers, modulators/demodulators, detectors, etc.) are instead implemented by means of software on a 
+					personal computer or embedded system. - Wikipedia
+
+					Note: Traditionally you got a radio based service with a device made specific to that service and nothing else. If you have an
+					AM radio or version 1/2 of a Wifi device, you needed to buy a new device (AM/FM radio,Wifi ver X) to use the new shiny faster,
+					higher fidelity service. Or a whole new device for a different type of service (Zigbee, Z-wave,Bluetooth)
+					--
+					<img src="images/SDR_et_WF.png">
+					Software Defined Radio Scheme - Adopted by LtCdr 
+					Topi Tuukkanen, Project Manager, Finnish Software 
+					Radio Demonstrator from various scientific articles,
+					studies, conference papers etc in public domain. 
+					Note:  SDR shifts those hard wire/hard coded components that mix, filter, amplify, modulates or demoodulates into an FPGA or to
+					your computer. 
+					--
+					## Remember these? Example of software defined 'things'
+					<img src="images/WinModemXRegModem.jpg" style="width: 800px">
+					Note: To let some of you who weren't born in the 70's or 80's (weird i know they exist and are here), remember the transition
+					from 'real' or 'hardware' modems to WinModems or SoftModems? This is am example of offloading a hardware function to software.
+					-- 
+					# Still got one!
+					<img src="images/USBModem.jpg" style="width: 750px">
+					--
+					## History
+					SPEAKeasy Phase I and II
+
+					<img src="images/speakeasy.jpeg" style="width: 600px">
+					Note: Multiple parallel creation stories, independant but all working to the same goal. Raytheon was working on a software based
+					transciever for a GSM base station in 1991 and modified the idea and sold it to the US Airforce who had a project called SPEAKeasy, 
+					the goal of which was to combine 10 radio systems into one. Sort of succeeded, was size of a truck. Amateur radio and HF radio engineers
+					realized the value of digitizing and were experiementing with DSP's from the 80s to 90s, finally German Aerospace Center (DLR)
+					created an full transceiver SDR in 1988. 
+					--
+					## Today-ish
+					<img src="images/Today-Icon.jpeg" style="width: 600px">
+					Note: Fast forward to the early 2000's to today. There were commercial versions of SDRs created but they are in the hundred to 
+					thousands of dollars and came with propietary software. 
+					--
+					## SDR for the masses 
+					<img src="images/DVB-T_USB_dongle_with_RTL2832U_and_R820T.jpg" style="width: 600px">
+					Note: Eventaully real hackers discovered that a Digital Video Broadcast (DVB-T) device had the
+					capability to be tuned to a larger frequency range than designed. This control allowed these devices to receive other RF ranges, 
+					feed the data to the software. After that there was purpose made radio devices for SDR making it easier to play with and here we 
+					are.
+					---
+					# Capabilities and Projects, Use Cases
+
+					Note: Sneaky data exfiltration, slow scan TV, DVB-T tv, DAB audio, FM audio, GSM (2G) traffic decoding, IMSI catcher, Cellphone
+					shenanigans (Defcon NinjaTel), amateur radio/Ham radio, packet radio (AX.25), vehicle tracking via APRS, Airplane tracking ADS-B, 
+					listening to airline traffic (ACARS), tracking ships in the harbour,listening to city services on trunked radio (not the cops..yet), 
+					, speaking with ISS, downloading NOAA weather images, Amateur radio astronomy, home automation projects, passive and active weather 
+					radar, RF direction finding, potential to infiltrate the 'connected' smart city grid. GPS tracking, faking GPS.
+					Depending on the RF front end capabilities and your antenna.
+					--
+					### Exceptional Application
+					<img src="images/threatmodelman.jpg" style="width:600px">
+					Note: Remember the exceptions mentioned earlier. A 'blueteam' wouldn't necessarily use these tools, a red-team might
+					if their target involves RF accessible ICS/SCADA systems. If you're a developer of an application that uses RF like perhaps 
+					a traffic control system or city wide mesh network from SilverSprings Networks/Itron, you might use this for RF Fuzzing.   
+					Not all network stacks are made equal (Win vs Linux vs BSD TCP), not all RF platforms are either like Zigbee/Zwave(Philips hue).
+					---
+					## Hardware
+					<img src="images/SDRes.jpg" style="width: 600px">
+					Note: Easiest way to get started is with the RTL-SR.COM v3 kit. This is a receive only device but works in the 24 Mhz to 1766
+					Mhz range (direct sampling mode is 500khz to 24Mhz, ham radio frequencies). Be careful of the device you buy, there's cheaper
+					but you get what you pay for. NooElect devices are good too. Digikey will become your sears christmas wishbook. Get SMA connected
+					devices. MCX and all others are a pain. Airspy are reputable devices too. 
+					--
+					## Transmitting
+					<img src="images/LimeSDR-side.jpg">
+					Note: If you want good clean transmitting devices, HackRF, LimeSDR, Ettus USRP. Can be cost prohibitive. I've got LimeSDR Mini, 
+					inexpensvie and a high learning curve but about 150-200 canadian. Will go for MIMO later. 
+					-- 
+					## Fun hacks
+					<img src="images/fl2k_devices.jpg">
+					Note: Cheapest and most inaccurate way to get into transmitting (also potential violation of Industry Canada rules), RPi can be
+					modified into a transmitter, as well as some "USB 3.0 to VGA" adapters. 
+					--
+					## Antennas
+					<img src="images/Waifu-Antenna-Front.png" style="width: 600px">
+					Note: this is the waifu antenna from @ifnotpike on twitter. Smart dog lots of great learning resources through him.
+					--
+					<img src="images/NotPikeWaifuAntenna.png" style="width: 400px">
+					--
+					<img src="images/Antennas.jpg" style="width: 600px">
+					Note: Location matters, you can't do this from the basement office without having a cable run to an antenna HIGH up (attic), outdoors 
+					if possible. Old Fashioned rabbit ears (dipoles) work well for most of what you'll probably start out with. Tiny ADS-B antennas 
+					are primarily good for one application and will frustrate you once you grow out of tracking airplanes. 
+					--
+					<img src="images/AntennaConnectors.jpg" style="width: 600px">
+					Note: Top two antenna connectors are SMA style. Look like F-Type connectors thats on your cable TV. (you still got that right?) They
+					aren't compatible. When picking a device, make a digikey order for a lot of SMA male and female connectors because you'll make 
+					pigtails (cable adapters or extenders) or just buy them off Amazon.
+					--
+					<img src="images/QuestionableAntenna.png">
+					Note: Just about anything can be an antenna and however silly it looks, if its in a better position than your radio and you, use it.
+					 Emergency Dipole, cable split. 
+					--
+					## No money for this fancy thing?
+					  * not that expensive or fancy really
+					<img src="images/PCBPlanarDiskAntenna.jpg" style="width: 300px">
+					Note: Planar disk antenna. 
+
+					--
+					## No problem
+					Embrace hacker ethos, DIY!
+					<img src="images/Pizza-Dishes-Antenna.jpg" style="width: 300px">
+					Note: dollar store purchase, Betty Crocker wideband and broadband antenna.. Experiments were ok, but i wasn't high enough to properly
+					test it. Going in attic. Don't wanna do it, wife will make me do other chores.
+
+					-- 
+					# Others
+					<img src="images/radioforeveryone-bottleantenna.jpg">
+					Note: you can spend a long time on antenna and design. It was a lot of fun learning about them, for me. 
+					--
+					## Skillsets and extra tools
+					Learn to solder or make good friends who solder well.
+					<img src="images/CracklinCrotchDipole.png">
+					Note: I was in a bind, needed parts and my high school friend Cracklin Crotch' (SNL reference) helped me out with parts and soldering.
+					Be careful of the online handles you choose when younger.. its weird when older (but still very funny).
+
+					---
+					## OS / Software
+					<img src="images/gnuradio.svg" style="width: 600px">
+					<img src="images/wide_logo_pothosware.png" style="width: 600px">
+					Note: lots of software out there, to program with and just to see frequencies in a scope and waterfall. GQRX, SDRAngel, SDRSharp 
+					(airspy) to visually scan with. OS wise, I use a Ubuntu derivative. Even though you'll hate it, Ubuntu is probably your best bet
+					for software compatibility. Lots of Windows supported applications too.
+
+					--
+					# GQRX
+					<img src="images/gqrx.png">
+					Note: this has the aprs decoder and great way to test your radio if its working properly.
+
+					--
+					# SDRSharp
+					<img src="images/sdr-sharp.png">
+					Note: Windows support.
+					--- 
+					# Programming
+					Note: Lots of ways to develop and program your own SDR application, this is the basic way to get started and familiar.
+					--
+					# GNURadio
+					<img src="images/gnuradiocompiling.png" style="width: 1800px">
+					<img src="images/gnuradio.svg">
+					Note: Use PyBombs, its all Python2 based and will recompile from source and place extensions in a location of your choosing. 
+					Takes forever but best if you don't want weird software libraries all over the place that are incompatible with each other
+					leading to frustration.
+					--
+					# PothosWare SoapySDR
+					<img src="images/pothoswareoverview.png" style="width: 600px">
+					Note: Another flowgraph based software is called Pothosware. Haven't used it much, however I have used SoapySDR, which is a set of
+					libraries that act as a software abstraction layer to driving the RF hardware and is used for most other applications that need an
+					RF frondend. 
+					--
+					# LuaRadio
+					<img src="images/LuaRadioFlowgraph.png">
+
+					--
+					## Scratch Radio (Raspberry Pi)
+					<img src="images/ScratchRadio.jpg">
+					--
+					<img src="images/ScratchRadio-detail.jpg">
+
+					---
+					# Application specific
+					Note: Dump1090, sdr-trunk, GQRX - APRS , data exfiltration, URH reversing. Smart grids.
+					--
+					# Track airplanes
+					<img src="images/dump1090.png" style="">
+					Note: ADS-B software, flightaware sticks, only thing mostly.
+					--
+					## SDR-Trunk 
+					Note: SDR Trunk allows you to listen to local services, not the police, its encrypted. play video if time. Thank @obihann/Jeff Hann
+					-- 
+					## APRS 
+
+					<img src="images/aprs-NS.png">
+					--
+					<img src="images/BridgetownRepeater.png">
+
+					--
+					## Data exfiltration
+					<img src="images/Data-Exfil-random-frequency.png">
+
+					--
+					# 433 Mhz
+					<img src="images/rtl_433.png" style="width: 800px">
+					--
+					## Reversing radio protocol
+					<img src="images/URH.png">
+					Note: Universal Radio hacker , discover modlation keying and protocol necessities
+					--
+					## Reversing the easier way
+					SilverSpring Networks/Itron
+					<img src="images/PhotoCell-SilverSprings-MAC.jpg">
+					Note: this is outside my house.. and yours.. and even yours probably.
+					--
+					<img src="images/PhotoCell-SilverSprings-MAC-closeUp.jpg">
+					--
+					<img src="images/FCC-ID-Sheet.jpg">
+
+					---
+					# Ending.. or a beginning. 
+					Get your ham license! 
+					--
+					# Be curious!
+					Note: Find a group to work with. Shared learned experiences and failures are a lot more fun. 
+
+					
+					</script>
+				</section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
